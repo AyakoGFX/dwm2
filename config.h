@@ -4,6 +4,7 @@
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[] = {
@@ -30,9 +31,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* Audio controls */
@@ -76,14 +79,14 @@ static const char *termcmd[]  = { "alacritty", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	
-	/* Volume controls */
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = upvol } },   // Increase volume
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = downvol } }, // Decrease volume
 
 	/* Brightness control */
 	{ MODKEY,                       XK_w,      spawn,          {.v = brightness_up } },   // Increase brightness
 	{ MODKEY,                       XK_s,      spawn,          {.v = brightness_down } }, // Decrease brightness
+
+	/* Volume controls */
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = upvol } },   // Increase volume
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = downvol } }, // Decrease volume
 
 	/* Launching applications */
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("zoom") }, // Launch Zoom
@@ -95,18 +98,18 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },    // Focus previous window
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },   // Move window down
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },   // Move window up
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },    // Increase number of master clients
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },    // Decrease number of master clients
+	{ MODKEY,                       XK_u,      incnmaster,     {.i = +1 } },    // Increase number of master clients
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = -1 } },    // Decrease number of master clients
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },  // Decrease master area size
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },  // Increase master area size
 	{ MODKEY,                       XK_Tab,    view,           {0} },           // Switch to last viewed tag
 	{ MODKEY,                       XK_q,      killclient,     {0} },           // Close focused window
 
 	/* Layout management */
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // Set tile layout
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, // Set floating layout
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, // Set monocle layout
-	{ MODKEY,                       XK_space,  setlayout,      {0} },           // Toggle between layouts
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {.v = &layouts[0]} }, // Set tile layout
+	{ MODKEY,                       XK_a,      setlayout,      {.v = &layouts[1]} }, // Set floating layout
+	{ MODKEY,                       XK_space,  setlayout,      {.v = &layouts[2]} }, // Set monocle layout
+	//{ MODKEY,                       XK_space,  setlayout,      {0} },           // Toggle between layouts
 	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },         // Toggle floating mode
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },          // Toggle fullscreen mode
 
@@ -134,7 +137,7 @@ static const Key keys[] = {
 
 	/* Quit */
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} }, // Quit dwm
-  { MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, // restart config
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, // restart config
 };
 
 /* button definitions */

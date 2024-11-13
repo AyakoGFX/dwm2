@@ -106,7 +106,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_q,      killclient,     {0} },           // Close focused window
 
 	/* Layout management */
-	{ MODKEY|ShiftMask              XK_space,  setlayout,      {.v = &layouts[0]} }, // Set tile layout
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {.v = &layouts[0]} }, // Set tile layout
 	{ MODKEY,                       XK_a,      setlayout,      {.v = &layouts[1]} }, // Set floating layout
 	{ MODKEY,                       XK_space,  setlayout,      {.v = &layouts[2]} }, // Set monocle layout
 	//{ MODKEY,                       XK_space,  setlayout,      {0} },           // Toggle between layouts
