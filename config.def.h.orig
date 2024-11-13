@@ -76,14 +76,14 @@ static const char *termcmd[]  = { "alacritty", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	
-	/* Volume controls */
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = upvol } },   // Increase volume
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = downvol } }, // Decrease volume
 
 	/* Brightness control */
 	{ MODKEY,                       XK_w,      spawn,          {.v = brightness_up } },   // Increase brightness
 	{ MODKEY,                       XK_s,      spawn,          {.v = brightness_down } }, // Decrease brightness
+
+	/* Volume controls */
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = upvol } },   // Increase volume
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = downvol } }, // Decrease volume
 
 	/* Launching applications */
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("zoom") }, // Launch Zoom
@@ -95,18 +95,18 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },    // Focus previous window
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },   // Move window down
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },   // Move window up
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },    // Increase number of master clients
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },    // Decrease number of master clients
+	{ MODKEY,                       XK_u,      incnmaster,     {.i = +1 } },    // Increase number of master clients
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = -1 } },    // Decrease number of master clients
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },  // Decrease master area size
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },  // Increase master area size
 	{ MODKEY,                       XK_Tab,    view,           {0} },           // Switch to last viewed tag
 	{ MODKEY,                       XK_q,      killclient,     {0} },           // Close focused window
 
 	/* Layout management */
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // Set tile layout
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, // Set floating layout
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, // Set monocle layout
-	{ MODKEY,                       XK_space,  setlayout,      {0} },           // Toggle between layouts
+	{ MODKEY|ShiftMask              XK_space,  setlayout,      {.v = &layouts[0]} }, // Set tile layout
+	{ MODKEY,                       XK_a,      setlayout,      {.v = &layouts[1]} }, // Set floating layout
+	{ MODKEY,                       XK_space,  setlayout,      {.v = &layouts[2]} }, // Set monocle layout
+	//{ MODKEY,                       XK_space,  setlayout,      {0} },           // Toggle between layouts
 	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },         // Toggle floating mode
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },          // Toggle fullscreen mode
 
@@ -134,6 +134,7 @@ static const Key keys[] = {
 
 	/* Quit */
 	{ MODKEY|ShiftMask,             XK_e,      quit,           {0} }, // Quit dwm
+	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, // restart config
 };
 
 /* button definitions */
