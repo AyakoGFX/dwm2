@@ -36,7 +36,7 @@ static const Rule rules[] = {
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "Alacritty",NULL,    NULL,           0,         0,          1,           0,        -1 },
 	{ "Volapplet",NULL,     NULL,          0,         1,          0,           1,        -1 },
-	{ "Blueman-manager",NULL,NULL,         0,         1,          0,           1,        -1 }
+	{ "Blueman-manager",NULL,NULL,         0,         1,          0,           1,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
