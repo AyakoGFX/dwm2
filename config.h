@@ -94,7 +94,7 @@ static const Key keys[] = {
 	/* Launching applications */
 	{ MODKEY,                       XK_e,      spawn,          SHCMD("zoom") }, // Launch Zoom
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } }, // Launch terminal
-
+	{ MODKEY|ShiftMask,             XK_d,       spawn,          {.v = dmenucmd} }, // Launch terminal
 	/* Bar and window management */
 	{ MODKEY,                       XK_b,      togglebar,      {0} },           // Toggle bar visibility
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },    // Focus next window
