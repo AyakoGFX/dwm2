@@ -1,4 +1,15 @@
 super + d
       rofi -show drun
+
 super + g
       dmenu_run
+
+super + m
+      wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
+
+super + n
+      wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+
+
+
+

@@ -5,6 +5,11 @@ function run {
         $@&
     fi
 }
+
+
+# Autostart GNOME Polkit Authentication Agent only for nixos users for mode details ---> https://nixos.wiki/wiki/Polkit
+/nix/store/$(ls -la /nix/store | grep 'polkit-gnome' | grep -v 'fish-completions' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-gnome-authentication-agent-1 &
+
 run sxhkd &
 run nitrogen --restore &
 run picom &
@@ -17,8 +22,8 @@ run slstatus &
 run xset r rate 250 60 &
 setxkbmap -option caps:swapescape &
 
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-/usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd &
+#/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+#/usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd &
 
 
 #clipmenud &
